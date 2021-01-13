@@ -1,2 +1,2 @@
-k X
+FLider FShare_Sum k X X_Ave X_FShare X_Max X_Sum
 max min

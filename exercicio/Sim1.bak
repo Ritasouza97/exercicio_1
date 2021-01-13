@@ -1,13 +1,19 @@
 	
 Label Root
 {
-	Son: MODEL
-	Label MODEL
+	Son: SECTOR
+	Label SECTOR
 	{
-		Var: X
-		Param: min
-		Param: max
-		Var: k
+		Son: FIRM
+		Label FIRM
+		{
+			Var: X
+			Param: min
+			Param: max
+			Var: k
+
+		}
+
 
 	}
 
@@ -19,10 +25,12 @@ DATA
 
 Object: Root C	1
 
-Object: MODEL C	1
-Var: X 1 s + n p	0
-Param: min 0 n + n n	0
-Param: max 0 n + n n	1
+Object: SECTOR C	1
+
+Object: FIRM C	10
+Var: X 1 s + n p	0	0	0	0	0	0	0	0	0	0
+Param: min 0 n + n n	0	0	0	0	0	0	0	0	0	0
+Param: max 0 n + n n	1	1	1	1	1	1	1	1	1	1
 Var: k 0 n + n n
 
 SIM_NUM 1
@@ -37,34 +45,34 @@ Object_Root
 (no description available)
 END_DESCRIPTION
 
-Object_MODEL
+Object_SECTOR
 (no description available)
-_INIT_
+END_DESCRIPTION
 
+Object_FIRM
+(no description available)
 END_DESCRIPTION
 
 Variable_X
 (no description available)
 _INIT_
-All 1 instances equal to 0.
+All 10 instances equal to 0.
 END_DESCRIPTION
 
 Parameter_min
 (no description available)
 _INIT_
-All 1 instances equal to 0.
+All 10 instances equal to 0.
 END_DESCRIPTION
 
 Parameter_max
 (no description available)
 _INIT_
-All 1 instances equal to 1.
+All 10 instances equal to 1.
 END_DESCRIPTION
 
 Variable_k
 (no description available)
-_INIT_
-
 END_DESCRIPTION
 
 
