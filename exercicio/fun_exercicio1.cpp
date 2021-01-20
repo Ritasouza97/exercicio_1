@@ -104,18 +104,14 @@ Exercicio 2.1
 */
 
 EQUATION("Rank")
-v[0]=1;
+	SORT("FIRM", "X", "DOWN");
+	v[0]=0;
 	CYCLE(cur, "FIRM")
-	{
-			cur1=SORT("FIRM", "X", "DOWN");
-			CYCLE(cur1, "FIRM")
-			{
-					WRITES(cur, "firm_rank", v[0]);
-					v[0]=v[0]+1;	
-			}				
-	}
-
-RESULT(v[0])
+		{
+		v[0]++;
+		WRITES(cur, "firm_rank", v[0]);
+		}
+RESULT(0)
 
 
 
