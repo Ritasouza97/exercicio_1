@@ -92,25 +92,30 @@ EQUATION("FLider")
 /*
 NÚMERO (ou posição) da firma com maior X
 */
-v[0]=0; 
-v[1]=0; 
-v[2]=1; 
-CYCLE(cur, "FIRM")
-{
-	v[3]=VS(cur,"X_FShare");
-	if(v[3]<v[0]) 
-	{
-	v[2]=v[2]+1;
-	} /* caso em que a concorrente tem Marketshare menor, perde a batalha e a firma ganha "pontos" para ser líder*/
-	else
-	{
-	v[0]=v[3];
-	v[1]=v[1]+v[2];
-	v[2]=1;
-	} /* caso em que a concorrente tem Marketshare maior e ganha "pontos" para ser líder*/
-}
+v[0]=V("X_Max");
+cur1=SEARCH_CND("X", v[0]);			// o cur armazena um objeto especifico enquanto o v[] armazena um valor
+v[1]=SEARCH_INST(cur1);					// retorna a posição no objeto especificado
 RESULT(v[1])
 
+
+
+/*
+Exercicio 2.1 
+*/
+
+EQUATION("Rank")
+v[0]=1;
+	CYCLE(cur, "FIRM")
+	{
+			cur1=SORT("FIRM", "X", "DOWN");
+			CYCLE(cur1, "FIRM")
+			{
+					WRITES(cur, "firm_rank", v[0]);
+					v[0]=v[0]+1;	
+			}				
+	}
+
+RESULT(v[0])
 
 
 

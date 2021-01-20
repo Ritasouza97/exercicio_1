@@ -11,6 +11,8 @@ Label Root
 			Param: min
 			Param: max
 			Var: k
+			Var: X_FShare
+			Param: firm_rank
 
 		}
 
@@ -18,8 +20,8 @@ Label Root
 		Var: X_Max
 		Var: X_Sum
 		Var: FLider
-		Var: X_FShare
 		Var: FShare_Sum
+		Var: Rank
 
 	}
 
@@ -36,14 +38,16 @@ Var: X_Ave 0 s + n p
 Var: X_Max 0 s + n p
 Var: X_Sum 0 s + n p
 Var: FLider 0 s + n p
-Var: X_FShare 0 s + n p
 Var: FShare_Sum 0 s + n p
+Var: Rank 0 s + n p
 
 Object: FIRM C	10
 Var: X 0 s + n n
 Param: min 0 n + n n	0	0	0	0	0	0	0	0	0	0
 Param: max 0 n + n n	1	1	1	1	1	1	1	1	1	1
 Var: k 0 n + n n
+Var: X_FShare 0 s + n p
+Param: firm_rank 0 n + n n	0	0	0	0	0	0	0	0	0	0
 
 SIM_NUM 1
 SEED 2
@@ -87,14 +91,14 @@ _INIT_
 
 END_DESCRIPTION
 
-Variable_X_FShare
-Marketshare da Firma
+Variable_FShare_Sum
+Soma do Marketshare das Firmas
 _INIT_
 
 END_DESCRIPTION
 
-Variable_FShare_Sum
-Soma do Marketshare das Firmas
+Variable_Rank
+(no description available)
 _INIT_
 
 END_DESCRIPTION
@@ -127,6 +131,18 @@ Variable_k
 (no description available)
 _INIT_
 
+END_DESCRIPTION
+
+Variable_X_FShare
+Marketshare da Firma
+_INIT_
+
+END_DESCRIPTION
+
+Parameter_firm_rank
+(no description available)
+_INIT_
+All 10 instances equal to 0.
 END_DESCRIPTION
 
 

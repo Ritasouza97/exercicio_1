@@ -1,2 +1,2 @@
-FLider FShare_Sum k X X_Ave X_FShare X_Max X_Sum
-max min
+FLider FShare_Sum k Rank X X_Ave X_FShare X_Max X_Sum
+firm_rank max min
