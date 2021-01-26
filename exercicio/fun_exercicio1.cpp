@@ -9,6 +9,49 @@ MODELBEGIN
 
 // insert your equations here, between the MODELBEGIN and MODELEND words
 
+
+// Equações do exercício 3:
+
+
+// Preço no nível da firma:
+EQUATION("Price")
+v[0]=VL("X_FShare", 2);
+v[1]=VL("X_FShare", 1);
+		if(v[1]>=v[0])
+		v[2]=((v[1]-v[0])/v[0])+1; 
+		else 
+		v[2]=1;
+v[3]=VL("Price",1);
+v[4]=v[2]*v[3];
+RESULT(v[4])
+
+
+// Qualidade no nível da firma:
+EQUATION("Quality")
+v[0]=VL("Quality",2);
+v[1]=VL("Quality",1);
+		if(v[1]>=v[0]) 	
+		v[2]=v[1]+RND; 
+		else
+		v[2]=v[0]+RND;
+RESULT(v[2])
+
+// X = Vendas no nível da Firma = Preço x Quantidade
+EQUATION("Xvendas") 
+v[0]=V("Price"); // Equação do Preço
+v[1]=VL("Price",1);
+v[2]=V("Quality"); // Equação da Qualidade
+v[3]=VL("Quality",1);
+v[4]=VL("Xvendas",1);
+v[5]=V("pP")*(v[0]-v[1]) + V("pQ")*(v[2]-v[3]) +V("pA")*RND + v[4]; // Equação das Vendas = Preço x Quantidade
+RESULT(v[5])
+
+
+
+//...........................................
+
+// Equações dos exercícios anteriores abaixo:
+
 EQUATION("X")
 RESULT(VL("X",1)+V("k"))
 
@@ -17,7 +60,6 @@ v[0]=V("min");
 v[1]=V("max");
 v[2]=uniform(v[0],v[1]);
 RESULT(v[2])
-
 
 EQUATION("X_Sum")
 /*
