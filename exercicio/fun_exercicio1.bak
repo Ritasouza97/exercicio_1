@@ -9,153 +9,78 @@ MODELBEGIN
 
 // insert your equations here, between the MODELBEGIN and MODELEND words
 
-
-// Equações do exercício 3:
-
-
-// Preço no nível da firma:
-EQUATION("Price")
-v[0]=VL("X_FShare", 2);
-v[1]=VL("X_FShare", 1);
-		if(v[1]>=v[0])
-		v[2]=((v[1]-v[0])/v[0])+1; 
-		else 
-		v[2]=1;
-v[3]=VL("Price",1);
-v[4]=v[2]*v[3];
-RESULT(v[4])
+EQUATION("X")
+	v[0]=V("P");
+	v[1]=V("Q");
+	v[2]=V("c");
+	v[3]=V("e_p");
+	v[4]=V("e_q");
+	v[5]=pow(v[1],v[4])/pow(v[0],v[3]);
+	v[6]=v[5]+v[2];
+RESULT(v[6])
 
 
-// Qualidade no nível da firma:
-EQUATION("Quality")
-v[0]=VL("Quality",2);
-v[1]=VL("Quality",1);
-		if(v[1]>=v[0]) 	
-		v[2]=v[1]+RND; 
-		else
-		v[2]=v[0]+RND;
-RESULT(v[2])
-
-// X = Vendas no nível da Firma = Preço x Quantidade
-EQUATION("Xvendas") 
-v[0]=V("Price"); // Equação do Preço
-v[1]=VL("Price",1);
-v[2]=V("Quality"); // Equação da Qualidade
-v[3]=VL("Quality",1);
-v[4]=VL("Xvendas",1);
-v[5]=V("pP")*(v[0]-v[1]) + V("pQ")*(v[2]-v[3]) +V("pA")*RND + v[4]; // Equação das Vendas = Preço x Quantidade
+EQUATION("P")
+	v[0]=VL("P",1);
+	v[1]=V("p_adj");
+	v[2]=VL("Share",1);
+	v[3]=VL("Share",2);
+	v[4]=(v[2]-v[3])/v[3];
+	v[5]=v[0]*(1+v[1]*v[4]);
 RESULT(v[5])
 
 
+EQUATION("Q")
+	v[0]=VL("Q",1);
+	v[1]=V("q_sd");
+	v[2]=norm(v[0],v[1]);
+	v[3]=max(v[0],v[2]);
+RESULT(v[3])
 
-//...........................................
 
-// Equações dos exercícios anteriores abaixo:
-
-EQUATION("X")
-RESULT(VL("X",1)+V("k"))
-
-EQUATION("k")
-v[0]=V("min");
-v[1]=V("max");
-v[2]=uniform(v[0],v[1]);
+EQUATION("c")
+	v[0]=V("min");
+	v[1]=V("max");
+	v[2]=uniform(v[0],v[1]);
 RESULT(v[2])
 
 EQUATION("X_Sum")
-/*
-Soma
-*/
-v[0]=0;
-CYCLE(cur, "FIRM")
-{
-	v[1]=VS(cur,"X");
-	v[0]=v[0]+v[1];
-}
-RESULT(v[0])
-
+RESULT(SUM("X"))
 
 EQUATION("X_Ave")
-/*
-Média
-*/
-v[0]=0;
-v[1]=0;
-v[2]=0;
-CYCLE(cur, "FIRM")
-{
-	v[3]=VS(cur,"X");
-	v[0]=v[0]+v[3];
-	v[1]=v[1]+1;
-}
-if(v[1]==0)	
-v[2]=0; 
-else 
-v[2]=v[0]/v[1]
-RESULT(v[2])
-
+RESULT(AVE("X"))
 
 EQUATION("X_Max")
-/*
-Máximo
-*/
-v[0]=0;
-CYCLE(cur, "FIRM")
-{
-	v[1]=VS(cur,"X");
-	if(v[1]>=v[0]) 	
-	v[0]=v[1]; 
-	else 
-	v[0]=v[0];
-}
-RESULT(v[0])
+RESULT(MAX("X"))
 
+EQUATION("Share")
+	v[0]=V("X");
+	v[1]=V("X_Sum");
+	v[2]=v[1]!=0?v[0]/v[1]:0;
+RESULT(v[2])
 
-EQUATION("X_FShare")
-/*
-Marketshare da Firma
-*/
-RESULT((V("X")/V("X_Sum")))
-
-
-EQUATION("FShare_Sum")
-/*
-Soma do Marketshare das Firmas
-*/
-v[0]=0;
-CYCLE(cur, "FIRM")
-{
-	v[1]=VS(cur,"X_FShare");
-	v[0]=v[0]+v[1];
-}
-RESULT(v[0])
-
-
-EQUATION("FLider") 
-/*
-NÚMERO (ou posição) da firma com maior X
-*/
-v[0]=V("X_Max");
-cur1=SEARCH_CND("X", v[0]);			// o cur armazena um objeto especifico enquanto o v[] armazena um valor
-v[1]=SEARCH_INST(cur1);					// retorna a posição no objeto especificado
-RESULT(v[1])
-
-
-
-/*
-Exercicio 2.1 
-*/
-
-EQUATION("Rank")
-	SORT("FIRM", "X", "DOWN");
+//EXERCÍCIO 4
+EQUATION("HHI")
 	v[0]=0;
-	CYCLE(cur, "FIRM")
-		{
-		v[0]++;
-		WRITES(cur, "firm_rank", v[0]);
-		}
-RESULT(0)
+	CYCLE(cur,"FIRM")
+	{
+		v[1]=VS(cur,"Share");
+		v[2]=pow(v[1],2)
+		v[0]=v[0]+v[2];
+	}
+	if(v[0]==0)
+		v[3]=0;
+	else
+		v[3]=1/v[0]
+RESULT(v[3])
+	
 
 
+
+
+
+EQUATION("Share_Sum")
+RESULT(SUM("Share"))
 
 
 MODELEND

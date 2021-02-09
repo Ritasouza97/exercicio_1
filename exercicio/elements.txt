@@ -1,2 +1,2 @@
-FLider FShare_Sum k Price Quality Rank X X_Ave X_FShare X_Max X_Sum Xvendas
-firm_rank max min pA pP pQ
+c HHI P Q Share Share_Sum X X_Ave X_Max X_Sum
+e_p e_q max min p_adj q_sd
